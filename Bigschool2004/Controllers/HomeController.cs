@@ -1,4 +1,5 @@
 ﻿using Bigschool2004.Models;
+using Bigschool2004.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -21,6 +22,11 @@ namespace Bigschool2004.Controllers
                 .Where(c => c.DateTime > DateTime.Now)
                 .Include(c => c.Lecturer)
                 .Include(c => c.Category);
+            var viewModel = new CoursesViewModel
+            {
+                UpcommingCourses = upcommingCourses,
+                ShowAction = User.Identity.IsAuthenticated
+            };
                 
             return View(upcommingCourses);
         }
